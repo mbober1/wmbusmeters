@@ -1,0 +1,9 @@
+[submodule "rtl-sdr"]
+	path = rtl-sdr
+	url = https://github.com/rtlsdrblog/rtl-sdr-blog
+[submodule "rtl-wmbus"]
+	path = rtl-wmbus
+	url = https://github.com/xaelsouth/rtl-wmbus.git
+[submodule "wmbusmeters"]
+	path = wmbusmeters
+	url = https://github.com/wmbusmeters/wmbusmeters.git

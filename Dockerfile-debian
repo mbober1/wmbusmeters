@@ -1,0 +1,20 @@
+FROM debian:latest as builder
+LABEL maintainer="mbober1@gmail.com"
+RUN apt-get update 
+RUN apt-get -y install libusb-1.0-0-dev git cmake make gcc g++
+
+# Build rtl-sdr
+WORKDIR /
+COPY rtl-sdr rtl-sdr
+RUN mkdir rtl-sdr/build && cd rtl-sdr/build && cmake ../ -DINSTALL_UDEV_RULES=ON && make -j`nproc` && make install && ldconfig
+# RUN echo 'blacklist dvb_usb_rtl28xxu' > /etc/modprobe.d/blacklist-rtl.conf
+
+# Build rtl-wmbus
+WORKDIR /
+COPY rtl-wmbus rtl-wmbus
+RUN cd rtl-wmbus && make release && make install
+
+# Build wmbusmeters
+WORKDIR /
+COPY wmbusmeters wmbusmeters
+RUN cd wmbusmeters && ./configure && make -j`nproc` && make install
